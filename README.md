@@ -1,3 +1,3 @@
-# Python-programming-Tobias-Englund
+# About the repository
 
-Det här repot handlar om python programmering. Det är här jag kommer samla övningar, code-alongs, labbar och "explorations".
+Here I will add Python code-alongs, exercises, labs, and explorations.
