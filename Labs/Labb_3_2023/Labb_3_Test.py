@@ -1,53 +1,59 @@
-import Labb_3_Classes
-import pytest
-import 
-from Labb_3_Classes import Rectangle, Circle
+import unittest
+from math import pi
+from Labb_3_Classes import Shape, Rectangle, Circle, Cube, Sphere
 
-# Testing Rectangle
+# Received help from ChatGPT with finding ".assertEqual", ".assertTrue" and "unittest.TestCase"
 
-def test_rectangle_area():
-    rect = Rectangle(4, 5)
-    assert rect.area == 20
-
-def test_rectangle_circumference():
-    rect = Rectangle(4, 5)
-    assert rect.circumference == 18  # because: 2*(4+5)
-
-def test_is_square():
-    square = Rectangle(5, 5)
-    non_square = Rectangle(4, 5)
-    assert square.is_square() == True
-    assert non_square.is_square() == False
-
-# Testing Circle
-
-def test_circle_area():
-    circle = Circle(3)
-    assert circle.area == 3 * 3 * pi    # pytest.approx(28.27, 0.01)  # 3*3*pi
-
-def test_circle_circumference():
-    circle = Circle(3)
-    assert circle.circumference == pytest.approx(18.85, 0.01)  # 2*3*pi
-
-def test_is_unit_circle():
-    unit_circle = Circle(1)
-    non_unit_circle = Circle(3)
-    assert unit_circle.is_unit_circle() == True
-    assert non_unit_circle.is_unit_circle() == False
-
-# def test_square_positive_numbers():
-#     assert square(2) == 4
-#     assert square(5) == 25
+class TestShapes(unittest.TestCase):
     
-# def test_square_negative_numbers(): 
-#     assert square(-2) == 4
-#     assert square(-5) == 25
+    # Test rectangle
+    def test_rectangle_area(self):
+        rectangle = Rectangle(0, 0, 4, 5)
+        self.assertEqual(rectangle.area, 20)
+
+    def test_rectangle_circumference(self):
+        rectangle = Rectangle(0, 0, 4, 5)
+        self.assertEqual(rectangle.circumference, 18)
+
+    def test_rectangle_is_square(self):
+        rectangle = Rectangle(0, 0, 4, 4)
+        self.assertTrue(rectangle.is_square())
+        
+    # Test circle
+    def test_circle_area(self):
+        circle = Circle(0, 0, 2)
+        self.assertEqual(circle.area, 4 * pi)
+        
+    def test_circle_circumference(self):
+        circle = Circle(0, 0, 2)
+        self.assertEqual(circle.circumference, 4 * pi)
+        
+    def test_circle_is_unit_circle(self):
+        circle = Circle(0, 0, 1)
+        self.assertTrue(circle.is_unit_circle())
+      
+    # Test cube  
+    def test_cube_area(self):
+        cube = Cube(0, 0, 0, 2)
+        self.assertEqual(cube.area, 24)
+        
+    def test_cube_volume(self):
+        cube = Cube(0, 0, 0, 2)
+        self.assertEqual(cube.volume, 8)
+
+    def test_cube_is_unit_cube(self):
+        cube = Cube(0, 0, 0, 1)
+        self.assertTrue(cube.is_unit_cube())
     
-# def test_zero_square(): 
-#     assert square(0) == 0
-    
-# def test_greet_default_no_name():
-#     assert greet() == "Hello world!"
-    
-# def test_greet_with_name():
-#     assert greet("Fredrik") == "Hello Fredrik!" 
+    # Test sphere
+    def test_sphere_surface_area(self):
+        sphere = Sphere(0, 0, 0, 2)
+        self.assertEqual(sphere.area, 4 * 4 * pi)
+
+    def test_sphere_volume(self):
+        sphere = Sphere(0, 0, 0, 2)
+        self.assertEqual(sphere.volume, (4/3) * pi * (2)**3)
+        
+    def test_sphere_is_unit_sphere(self):
+        sphere = Sphere(0, 0, 0, 1)
+        self.assertTrue(sphere.is_unit_sphere())
