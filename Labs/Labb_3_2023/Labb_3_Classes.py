@@ -12,129 +12,176 @@
 # - A method that checks if the circle instance is a unit circle.
 # - A method that checks if the rectangle instance is a square.
 
+from math import pi
+
+# I didn't understand the math for the inside_object methods and ended up using ChatGPT for these.
+
 class Shape():
-    def __init__(self):
-        pass
+    def __init__(self, x, y, z=None):
+        self.x = x
+        self.y = y
+        self.z = z
 
-    def __eq__(self):
-        pass
+    def __eq__(self, other):
+        if not isinstance(other, Shape): 
+            raise TypeError(f"Can't compare Shape with {type(other)}")
+        return self.area == other.area
     
-    def __lt__(self):
-        pass
+    def __lt__(self, other):
+        if not isinstance(other, Shape):
+            raise TypeError(f"Can't compare Shape with {type(other)}")
+        return self.area < other.area
 
-    def __gt__(self):
-        pass
+    def __gt__(self, other):
+        if not isinstance(other, Shape):
+            raise TypeError(f"Can't compare Shape with {type(other)}")
+        return self.area > other.area
     
-    def __le__(self):
-        pass
+    def __le__(self, other):
+        if not isinstance(other, Shape):
+            raise TypeError(f"Can't compare Shape with {type(other)}")
+        return self.area <= other.area
     
-    def __ge__(self):
-        pass
+    def __ge__(self, other):
+        if not isinstance(other, Shape):
+            raise TypeError(f"Can't compare Shape with {type(other)}")
+        return self.area >= other.area
 
-    def translation(self):
-        pass
+    def translation(self, x, y, z):
+        self.x += x
+        self.y += y
+        if z is not None and hasattr(self, 'z'):
+            self.z += z
 
-    def inside_object(self):
-        pass
+    def inside_object(self, x, y, z):  # Code/formula for inside_object method from ChatGPT 
+        raise NotImplementedError("This method should be overridden by subclass")
 
     def __repr__(self):
-        pass
+        if self.z is not None:
+            return f'The center point of the shape is located at x: {self.x}, y: {self.y}, and z: {self.z}.)'
+        else:
+            return f'The center point of the shape is located at x: {self.x} and y: {self.y}.)'
         
     def __str__(self):
-        pass
-    
+        return "This is a shape object."
+
 class Rectangle(Shape):
-    def __init__(self):
-        pass
+    def __init__(self, x, y, width, length):
+        super().__init__(x, y)
+        if width < 0 or length < 0 or not isinstance(width, (int, float)) or not isinstance(length, (int, float)):
+            raise ValueError("Sides of a rectangle must be positive.")
+        self.width = width
+        self.length = length
     
     @property
     def area(self): 
-        pass
+        return self.width * self.length
 
     @property
     def perimeter(self):    
-        pass
+        return (2 * self.width) + (2 * self.length)
     
     def is_square(self):
-        pass
+        return self.width == self.length
     
-    def inside_object(self):
-        pass  
+    def inside_object(self, x, y):  # Code/formula for inside_object method from ChatGPT 
+        return abs(x - self.x) <= self.width / 2 and abs(y - self.y) <= self.length / 2     
     
     def __repr__(self):
-        pass
+        return super().__repr__() + f'The rectangle has the sides {self.width} and {self.length}.'
     
     def __str__(self):
-        pass
+        return super().__str__() + f'The rectangle has the area {self.area} and perimeter {self.perimeter}.'
     
 class Circle(Shape):
-    def __init__(self): 
-        pass
+    def __init__(self, x, y, radius): 
+        super().__init__(x, y)
+        if radius < 0 or not isinstance(radius, (int, float)):
+            raise ValueError("The radius of a circle must be positive.")
+        self.radius = radius
         
     @property
     def area(self):
-        pass
+        return pi * (self.radius)**2
 
     @property
     def circumference(self):
-        pass
+        return 2 * pi * self.radius  
     
     def is_unit_circle(self):
-        pass
+        return self.radius == 1
             
-    def inside_object(self):
-        pass                        
+    def inside_object(self, x, y):  # Code/formula for inside_object method from ChatGPT
+        return (x - self.x)**2 + (y - self.y)**2 <= self.radius**2                              
             
     def __repr__(self):
-        pass
+        return super().__repr__() + f'The circle has a radius of {self.radius}.'
     
     def __str__(self):
-        pass
+        return super().__str__() + f'The circle has the area {self.area} and circumference {self.circumference}.'
+
+# For cubes and spheres (the 3D shapes) I decided to go with area and volume. To me, circumference don't really seem useful for 3D shapes.
+
+# Cube formulas:
+# Area = 6 * (side_length)^2
+# Volume = (side_length)^3
 
 class Cube(Shape):
-    def __init__(self): 
-        pass
+    def __init__(self, x, y, z, side_length): 
+        super().__init__(x, y, z)
+        if side_length < 0 or not isinstance(side_length, (int, float)):
+            raise ValueError("The side-length of a cube must be positive.")
+        self.side_length = side_length
         
     @property
     def area(self):
-        pass
+        return 6 * (self.side_length)**2
     
     @property
     def volume(self):
-        pass
+        return (self.side_length)**3   
     
     def is_unit_cube(self):
-        pass
+        return self.side_length == 1
             
-    def inside_object(self): 
-        pass     
+    def inside_object(self, x, y, z):   # Code/formula for inside_object method from ChatGPT
+        return abs(x - self.x) <= self.side_length / 2 and \
+            abs(y - self.y) <= self.side_length / 2 and \
+            abs(z - self.z) <= self.side_length / 2        
             
     def __repr__(self):
-        pass
+        return super().__repr__() + f'The cube has a side-length of {self.side_length}.'
     
     def __str__(self):
-        pass
+        return super().__str__() + f'The cube has an area of {self.area} and a volume of {self.volume}..'
 
-class Sphere(Shape):  
-    def __init__(self): 
-        pass
+# Sphere formulas:
+# Area = 4 * pi * (radius)^2
+# Volume = pi * 4/3 * (radius)^3
+
+class Sphere(Shape):    
+    def __init__(self, x, y, z, radius): 
+        super().__init__(x, y, z)
+        if radius < 0 or not isinstance(radius, (int, float)):
+            raise ValueError("The radius of a sphere must be positive.")
+        self.radius = radius
         
     @property
     def area(self):
-        pass
+        return pi * 4 * (self.radius)**2
     
     @property
     def volume(self):
-        pass
+        return pi * (4/3) * (self.radius)**3 
     
     def is_unit_sphere(self):
-        pass
+        return self.radius == 1
             
-    def inside_object(self):
-        pass    
+    def inside_object(self, x, y, z):  # Code/formula for inside_object method from ChatGPT
+        return (x - self.x)**2 + (y - self.y)**2 + (z - self.z)**2 <= self.radius**2        
             
     def __repr__(self):
-        pass
+        return super().__repr__() + f'The sphere has a radius of {self.radius}.'
     
     def __str__(self):
-        pass
+        return super().__str__() + f'The sphere has a  area of {self.area} and a volume of {self.volume}.'
