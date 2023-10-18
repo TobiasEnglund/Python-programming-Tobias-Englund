@@ -66,6 +66,13 @@ class Shape():
         return "This is a shape object."
 
 class Rectangle(Shape):
+    """
+    The Rectangle class is used for:
+    - Calculating the area of the rectangle
+    - Calculating the perimeter of the rectangle
+    - Checking if the rectangle is a square
+    - Checking if the center point is inside the rectangle
+    """
     def __init__(self, x, y, width, length):
         super().__init__(x, y)
         if width < 0 or length < 0 or not isinstance(width, (int, float)) or not isinstance(length, (int, float)):
@@ -82,9 +89,23 @@ class Rectangle(Shape):
         return (2 * self.width) + (2 * self.length)
     
     def is_square(self):
+        """
+        Checks if rectangle is a square
+        
+        Returns:
+        True: If the rectangle is a square
+        False: If it is not
+        """
         return self.width == self.length
     
     def inside_object(self, x, y):  # Code/formula for inside_object method from ChatGPT 
+        """
+        Checks if the center point is inside the rectangle
+        
+        Returns:
+        True: If the center point is inside the rectangle
+        False: If it is not
+        """
         return abs(x - self.x) <= self.width / 2 and abs(y - self.y) <= self.length / 2     
     
     def __repr__(self):
@@ -94,6 +115,13 @@ class Rectangle(Shape):
         return super().__str__() + f'The rectangle has the area {self.area} and perimeter {self.perimeter}.'
     
 class Circle(Shape):
+    """
+    The Circle class is used for:
+    - Calculating the area of the circle
+    - Calculating the circumference of the circle
+    - Checking if the circle is a unit circle
+    - Checking if the center point is inside the circle
+    """
     def __init__(self, x, y, radius): 
         super().__init__(x, y)
         if radius < 0 or not isinstance(radius, (int, float)):
@@ -109,9 +137,23 @@ class Circle(Shape):
         return 2 * pi * self.radius  
     
     def is_unit_circle(self):
+        """
+        Checks if the circle is a unit circle
+
+        Returns:
+        True: If the cube is a unit circle
+        False: If it is not
+        """
         return self.radius == 1
             
     def inside_object(self, x, y):  # Code/formula for inside_object method from ChatGPT
+        """
+        Checks if the center point is inside the circle
+        
+        Returns:
+        True: If the center point is inside the circle
+        False: If it is not
+        """
         return (x - self.x)**2 + (y - self.y)**2 <= self.radius**2                              
             
     def __repr__(self):
@@ -127,6 +169,13 @@ class Circle(Shape):
 # Volume = (side_length)^3
 
 class Cube(Shape):
+    """
+    The Cube class is used for:
+    - Calculating the area of the cube
+    - Calculating the volume of the cube
+    - Checking if the cube is a unit cube
+    - Checking if the center point is inside the cube
+    """
     def __init__(self, x, y, z, side_length): 
         super().__init__(x, y, z)
         if side_length < 0 or not isinstance(side_length, (int, float)):
@@ -142,9 +191,23 @@ class Cube(Shape):
         return (self.side_length)**3   
     
     def is_unit_cube(self):
+        """
+        Checks if the cube is a unit cube
+
+        Returns:
+        True: If the cube is a unit cube
+        False: If it is not
+        """
         return self.side_length == 1
             
     def inside_object(self, x, y, z):   # Code/formula for inside_object method from ChatGPT
+        """
+        Checks if the center point is inside the cube
+        
+        Returns:
+        True: If the center point is inside the cube
+        False: If it is not
+        """
         return abs(x - self.x) <= self.side_length / 2 and \
             abs(y - self.y) <= self.side_length / 2 and \
             abs(z - self.z) <= self.side_length / 2        
@@ -159,7 +222,15 @@ class Cube(Shape):
 # Area = 4 * pi * (radius)^2
 # Volume = pi * 4/3 * (radius)^3
 
-class Sphere(Shape):    
+class Sphere(Shape):
+    """
+    The Sphere class is used for:
+    - Calculating the area of the sphere
+    - Calculating the volume of the sphere
+    - Checking if the sphere is a unit sphere
+    - Checking if the center point is inside the sphere
+    """
+    
     def __init__(self, x, y, z, radius): 
         super().__init__(x, y, z)
         if radius < 0 or not isinstance(radius, (int, float)):
@@ -175,9 +246,23 @@ class Sphere(Shape):
         return pi * (4/3) * (self.radius)**3 
     
     def is_unit_sphere(self):
+        """
+        Checks if the sphere is a unit sphere
+
+        Returns:
+        True: If the sphere is the unit sphere
+        False: If it is not
+        """
         return self.radius == 1
             
     def inside_object(self, x, y, z):  # Code/formula for inside_object method from ChatGPT
+        """
+        Checks if the center point is inside the sphere
+        
+        Returns:
+        bool True: If the center point is inside the sphere
+        bool False: If it is not
+        """
         return (x - self.x)**2 + (y - self.y)**2 + (z - self.z)**2 <= self.radius**2        
             
     def __repr__(self):
